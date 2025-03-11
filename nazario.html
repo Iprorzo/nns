@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport Shop</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        header {
+            background-color: #003366;
+            padding: 20px;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .products {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+        .product {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: white;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .product img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .product h3 {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        .product p {
+            font-size: 1em;
+            color: #666;
+        }
+        .product button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 15px;
+            background-color: #ffcc00;
+            color: #003366;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .product button:hover {
+            background-color: #ff9900;
+            transform: scale(1.05);
+        }
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #ffcc00;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .cart-icon:hover {
+            background-color: #ff9900;
+            transform: scale(1.1);
+        }
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 5px 8px;
+            font-size: 0.8em;
+        }
+    </style>
+    <script>
+        let cartItems = [];
+        let cartCount = 0;
+
+        function addToCart(button) {
+            const product = button.parentElement;
+            const name = product.getAttribute('data-name');
+            const price = parseFloat(product.getAttribute('data-price'));
+            const imageSrc = product.getAttribute('data-image');
+
+            cartItems.push({ name, price, imageSrc });
+            cartCount++;
+            updateCartIcon();
+        }
+
+        function updateCartIcon() {
+            const cartIcon = document.querySelector('.cart-count');
+            cartIcon.textContent = cartCount;
+        }
+
+        function goToCart() {
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+            window.location.href = "cart.html";
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Sport Shop</h1>
+        <div class="cart-icon" onclick="goToCart()">
+            🛒
+            <div class="cart-count">0</div>
+        </div>
+    </header>
+    <section class="products">
+        <div class="product" data-name="Nike Mercurial" data-price="150" data-image="i (7).webp">
+            <img src="i (7).webp" alt="Nike Mercurial">
+            <h3>Nike Mercurial</h3>
+            <p>Price: $150</p>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Adidas Predator" data-price="130" data-image="i (8).webp">
+            <img src="i (8).webp" alt="Adidas Predator">
+            <h3>Adidas Predator</h3>
+            <p>Price: $130</p>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Puma Ultra" data-price="120" data-image="i (10).webp">
+            <img src="i (10).webp" alt="Puma Ultra">
+            <h3>Puma Ultra</h3>
+            <p>Price: $120</p>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Punching Human" data-price="150" data-image="Free-Standing-Punch-Bag-Heavy-Duty-Torso.avif">
+            <img src="Free-Standing-Punch-Bag-Heavy-Duty-Torso.avif" alt="Punching Human">
+            <h3>Punching Human</h3>
+            <p>Price: $150</p>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Euro Ball 24" data-price="130" data-image="orig (1).webp">
+            <img src="orig (1).webp" alt="Euro Ball 24">
+            <h3>Euro Ball 24</h3>
+            <p>Price: $130</p>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+        <div class="product" data-name="Real Madrid Kit" data-price="120" data-image="600013388281b0.webp">
+            <img src="600013388281b0.webp" alt="Real Madrid Kit">
+            <h3>Real Madrid Kit</h3>
+            <p>Price: $120</p>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+    </section>
+</body>
+</html>
